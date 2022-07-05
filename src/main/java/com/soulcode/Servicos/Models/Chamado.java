@@ -21,7 +21,7 @@ public class Chamado {
     @Column(columnDefinition = "date", nullable = false)
     private Date dataChamado;
 
-
+    @Enumerated(EnumType.STRING)
     private StatusChamado status;
 
     @ManyToOne

@@ -23,10 +23,13 @@ public class Funcionario {
     @Column(nullable = true)
     private String foto;
 
+    @ManyToOne
+    @JoinColumn(name = "idCargo")
+    private Cargo cargo;
+
     @JsonIgnore
     @OneToMany(mappedBy = "funcionario")
     private List<Chamado> chamados = new ArrayList<Chamado>();
-
 
     public List<Chamado> getChamados() {
         return chamados;
@@ -66,5 +69,13 @@ public class Funcionario {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 }

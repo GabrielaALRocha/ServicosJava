@@ -23,6 +23,9 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<Chamado> chamados = new ArrayList<Chamado>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_endereco", unique = true)
+    private Endereco enderecoCliente;
     public List<Chamado> getChamados() {
         return chamados;
     }

@@ -1,6 +1,8 @@
 package com.soulcode.Servicos.Services;
 
+import com.soulcode.Servicos.Models.Cargo;
 import com.soulcode.Servicos.Models.Funcionario;
+import com.soulcode.Servicos.Repositories.CargoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.soulcode.Servicos.Repositories.FuncionarioRepository;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class FuncionarioService {
     @Autowired
     FuncionarioRepository funcionarioRepository;
 
+    @Autowired
+    CargoRepository cargoRepository;
     public List<Funcionario> mostrarTodosFuncionarios() {
 
         return funcionarioRepository.findAll();
@@ -30,8 +34,15 @@ public class FuncionarioService {
         return funcionario.orElseThrow();
     }
 
-    public Funcionario cadastrarFuncionario(Funcionario funcionario) {
+    public List<Funcionario> mostrarTodosFuncionariosDoCargo(Integer idCargo) {
+        Optional<Cargo> cargo = cargoRepository.findById(idCargo);
+        return funcionarioRepository.findByCargo(cargo);
+    }
+
+    public Funcionario cadastrarFuncionario(Funcionario funcionario, Integer idCargo) {
         funcionario.setIdFuncionario(null);
+        Optional<Cargo> cargo = cargoRepository.findById(idCargo);
+        funcionario.setCargo(cargo.get());
         return funcionarioRepository.save(funcionario);
     }
 
@@ -50,5 +61,7 @@ public class FuncionarioService {
         funcionario.setFoto(caminhoFoto);
         return funcionarioRepository.save(funcionario);
     }
+
+
 
 }

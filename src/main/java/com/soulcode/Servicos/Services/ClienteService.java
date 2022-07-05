@@ -1,7 +1,6 @@
 package com.soulcode.Servicos.Services;
 
 import com.soulcode.Servicos.Models.Cliente;
-import com.soulcode.Servicos.Models.Funcionario;
 import com.soulcode.Servicos.Repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -36,10 +36,15 @@ public class FuncionarioContoller {
         Funcionario funcionario = funcionarioService.mostrarFuncionarioPeloEmail(emailFuncionario);
         return ResponseEntity.ok().body(funcionario);
     }
+    @GetMapping("funcionariosCargo/{idCargo}")
+    public List<Funcionario> mostrarTodosFuncionariosDoCargo(@PathVariable Integer idCargo) {
+        List<Funcionario> funcionarios = funcionarioService.mostrarTodosFuncionariosDoCargo(idCargo);
+    return funcionarios;
+    }
 
-    @PostMapping("/funcionarios")
-    public ResponseEntity<Funcionario> cadastrarFuncionario(@RequestBody Funcionario funcionario){
-        funcionario = funcionarioService.cadastrarFuncionario(funcionario);
+    @PostMapping("/funcionarios/{idCargo}")
+    public ResponseEntity<Funcionario> cadastrarFuncionario(@RequestBody Funcionario funcionario,@PathVariable Integer idCargo){
+        funcionario = funcionarioService.cadastrarFuncionario(funcionario,idCargo);
         URI novaUri = ServletUriComponentsBuilder.fromCurrentRequest().path("id").buildAndExpand(funcionario.getIdFuncionario()).toUri();
         return ResponseEntity.created(novaUri).body(funcionario);
     }

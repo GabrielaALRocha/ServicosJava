@@ -1,7 +1,7 @@
 package com.soulcode.Servicos.Controllers;
 
 import com.soulcode.Servicos.Models.Cliente;
-import com.soulcode.Servicos.Repositories.ClienteRepository;
+
 import com.soulcode.Servicos.Services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
