@@ -3,25 +3,20 @@ package com.soulcode.Servicos.Models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Endereco {
-
+public class EnderecoCliente {
     @Id
     private Integer idEndereco;
-
     @Column(nullable = false, length = 100)
     private String rua;
-
     @Column(nullable = false, length = 50)
     private String bairro;
-
     @Column(nullable = false, length = 50)
     private String cidade;
-
     @Column(nullable = false, length = 2)
     private String uf;
-
     public Integer getIdEndereco() {
         return idEndereco;
     }

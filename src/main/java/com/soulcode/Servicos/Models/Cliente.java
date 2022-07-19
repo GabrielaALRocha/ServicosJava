@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 public class Cliente {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCliente;
@@ -16,23 +15,17 @@ public class Cliente {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false,length=100, unique = true)
+    @Column(nullable = false, length = 100)
     private String email;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
-    private List<Chamado> chamados = new ArrayList<Chamado>();
+    private List<Chamado> chamados = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_endereco", unique = true)
-    private Endereco enderecoCliente;
-    public List<Chamado> getChamados() {
-        return chamados;
-    }
+    @JoinColumn(name = "id_endereco", unique=true)
+    private EnderecoCliente enderecoCliente;
 
-    public void setChamados(List<Chamado> chamados) {
-        this.chamados = chamados;
-    }
 
     public Integer getIdCliente() {
         return idCliente;
@@ -57,5 +50,20 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-}
 
+    public List<Chamado> getChamados() {
+        return chamados;
+    }
+
+    public void setChamados(List<Chamado> chamados) {
+        this.chamados = chamados;
+    }
+
+    public EnderecoCliente getEnderecoCliente() {
+        return enderecoCliente;
+    }
+
+    public void setEnderecoCliente(EnderecoCliente enderecoCliente) {
+        this.enderecoCliente = enderecoCliente;
+    }
+}

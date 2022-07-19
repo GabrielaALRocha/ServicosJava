@@ -18,17 +18,19 @@ public class UploadFileController {
     FuncionarioService funcionarioService;
 
     @PostMapping("/funcionarios/envioFoto/{idFuncionario}")
-    public ResponseEntity <Void> enviarFoto (@PathVariable Integer idFuncionario, MultipartFile file,
-                                             @RequestParam("nome") String nome) throws IOException {
+    public ResponseEntity<Void> enviarFoto(@PathVariable Integer idFuncionario,
+                                           MultipartFile file,
+                                           @RequestParam("nome") String nome){
 
         String fileName = nome;
-        String uploadDir = "C:/Users/gabri/Desktop/FotosJava";
-        String nomeMaisCaminho = "C:/Users/gabri/Desktop/FotosJava/" + nome; // String nomeMaisCaminho = uploadDir + nome;
+        String uploadDir = "/home/tatiana/Downloads/fotoFunc";
+        String nomeMaisCaminho = "/home/tatiana/Downloads/fotoFunc/" + nome;
+
 
         try{
-            UploadFile.saveFile(uploadDir,fileName, file);
-            funcionarioService.adicionarFoto(idFuncionario,nomeMaisCaminho);
-        } catch(IOException e) {
+            UploadFile.saveFile(uploadDir, fileName, file);
+            funcionarioService.salvarFoto(idFuncionario, nomeMaisCaminho);
+        } catch (IOException e) {
             System.out.println("O arquivo não foi enviado: " + e.getMessage());
         }
         return ResponseEntity.ok().build();

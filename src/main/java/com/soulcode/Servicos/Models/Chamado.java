@@ -19,7 +19,7 @@ public class Chamado {
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(columnDefinition = "date", nullable = false)
-    private Date dataChamado;
+    private Date dataEntrada;
 
     @Enumerated(EnumType.STRING)
     private StatusChamado status;
@@ -29,8 +29,13 @@ public class Chamado {
     private Funcionario funcionario;
 
     @ManyToOne
-    @JoinColumn(name ="idCliente")
+    @JoinColumn(name = "idCliente")
     private Cliente cliente;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "idPagamento", unique=true)
+    private  Pagamento pagamento;
+
 
     public Integer getIdChamado() {
         return idChamado;
@@ -56,12 +61,12 @@ public class Chamado {
         this.descricao = descricao;
     }
 
-    public Date getDataChamado() {
-        return dataChamado;
+    public Date getDataEntrada() {
+        return dataEntrada;
     }
 
-    public void setDataChamado(Date dataChamado) {
-        this.dataChamado = dataChamado;
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
     public StatusChamado getStatus() {
@@ -86,5 +91,13 @@ public class Chamado {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 }

@@ -17,27 +17,21 @@ public class Funcionario {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false,length=100, unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
 
     @Column(nullable = true)
     private String foto;
 
-    @ManyToOne
-    @JoinColumn(name = "idCargo")
-    private Cargo cargo;
-
     @JsonIgnore
     @OneToMany(mappedBy = "funcionario")
     private List<Chamado> chamados = new ArrayList<Chamado>();
 
-    public List<Chamado> getChamados() {
-        return chamados;
-    }
-
-    public void setChamados(List<Chamado> chamados) {
-        this.chamados = chamados;
-    }
+    //a primeira parte da anotação do relacionamento diz respeito a tabela que estamos inserindo o relacionamento(funcionario)
+    //a segunda parte da anotação do relacionamento diz respeito a segunda tabela, com a qual esta vai se relacionar
+    @ManyToOne
+    @JoinColumn(name = "idCargo")
+    private Cargo cargo;
 
     public Integer getIdFuncionario() {
         return idFuncionario;
@@ -69,6 +63,14 @@ public class Funcionario {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public List<Chamado> getChamados() {
+        return chamados;
+    }
+
+    public void setChamados(List<Chamado> chamados) {
+        this.chamados = chamados;
     }
 
     public Cargo getCargo() {

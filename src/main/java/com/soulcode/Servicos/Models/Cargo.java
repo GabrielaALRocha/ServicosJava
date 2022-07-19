@@ -1,8 +1,6 @@
 package com.soulcode.Servicos.Models;
 
-
 import javax.persistence.*;
-
 
 @Entity
 public class Cargo {
@@ -14,7 +12,7 @@ public class Cargo {
     @Column(nullable = false, length = 50)
     private String nome;
 
-    @Column(nullable = false,length=50)
+    @Column(nullable = false, length = 100)
     private String descricao;
 
     @Column(nullable = false)

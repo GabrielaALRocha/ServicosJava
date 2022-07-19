@@ -1,7 +1,6 @@
 package com.soulcode.Servicos.Controllers;
 
 import com.soulcode.Servicos.Models.Cliente;
-
 import com.soulcode.Servicos.Services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,48 +14,42 @@ import java.util.List;
 @RestController
 @RequestMapping("servicos")
 public class ClienteController {
-
     @Autowired
     ClienteService clienteService;
 
     @GetMapping("/clientes")
-    public List<Cliente> mostrarClientes() {
-        List<Cliente> clientes = clienteService.mostrarTodosCliente();
+    public List<Cliente> mostrarTodosCliente(){
+        List<Cliente> clientes = clienteService.mostrarTodosClientes();
         return clientes;
     }
 
     @GetMapping("/clientes/{idCliente}")
-        public ResponseEntity<Cliente> mostrarUmFuncionarioPeloId(@PathVariable Integer idCliente) {
-            Cliente cliente = clienteService.mostrarClientePeloId(idCliente);
-            return ResponseEntity.ok().body(cliente);
-        }
-
-    @GetMapping("/clientesEmail/{emailCliente}")
-    public ResponseEntity<Cliente> mostrarUmFuncionarioPeloEmail(@PathVariable String emailCliente) {
-        Cliente cliente = clienteService.mostrarClientePeloEmail(emailCliente);
+    public ResponseEntity<Cliente> mostrarUmCliente(@PathVariable Integer idCliente){
+        Cliente cliente = clienteService.mostrarUmCliente(idCliente);
         return ResponseEntity.ok().body(cliente);
     }
 
-
     @PostMapping("/clientes")
-    public ResponseEntity<Cliente> cadastrarClientes(@RequestBody Cliente clientes) {
-        clientes = clienteService.cadastrarCliente(clientes);
-        URI novaUri = ServletUriComponentsBuilder.fromCurrentRequest().path("id").buildAndExpand(clientes.getIdCliente()).toUri();
-        return ResponseEntity.created(novaUri).body(clientes);
-    }
+    public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente cliente) {
+        cliente = clienteService.inserirCliente(cliente);
 
-    @DeleteMapping("/clientes/{idCliente}")
-    public ResponseEntity <Void> deletarFuncionario (@PathVariable Integer idCliente) {
-        clienteService.excluirCliente(idCliente);
-        return ResponseEntity.noContent().build();
+        URI novaUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(cliente.getIdCliente()).toUri();
+
+
+        return ResponseEntity.created(novaUri).body(cliente);
     }
 
     @PutMapping("/clientes/{idCliente}")
-    public ResponseEntity <Cliente> alterarFuncionario(@PathVariable Integer idCliente, @RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> editarCliente(@PathVariable Integer idCliente, @RequestBody Cliente cliente) {
         cliente.setIdCliente(idCliente);
-        clienteService.editarCliente(cliente);
+        cliente = clienteService.editarCliente(cliente);
         return ResponseEntity.noContent().build();
     }
 
-
+    @DeleteMapping("clientes/{idCliente}")
+    public ResponseEntity<Void> excluirCliente(@PathVariable Integer idCliente){
+        clienteService.excluirCliente(idCliente);
+        return ResponseEntity.noContent().build();
+    }
 }

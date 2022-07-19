@@ -7,14 +7,14 @@ public enum StatusChamado {
     CONCLUIDO("Concluido"),
     ARQUIVADO("Arquivado");
 
-    private String tipo;
+    private String descricao;
 
-    StatusChamado(String tipo) {
-        this.tipo = tipo;
+    StatusChamado(String descricao){
+        this.descricao = descricao;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getDescricao() {
+        return descricao;
     }
 
 }
